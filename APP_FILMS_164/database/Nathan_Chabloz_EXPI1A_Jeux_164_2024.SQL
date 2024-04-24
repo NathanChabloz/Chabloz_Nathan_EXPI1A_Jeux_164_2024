@@ -1,20 +1,24 @@
--- OM 2021.02.17
--- FICHIER MYSQL POUR FAIRE FONCTIONNER LES EXEMPLES
--- DE REQUETES MYSQL
--- Database: Nathan_Chabloz_EXPI1A_Jeux_164_2024
+-- --------------------------------------------------------
+-- Hôte:                         127.0.0.1
+-- Version du serveur:           8.0.30 - MySQL Community Server - GPL
+-- SE du serveur:                Win64
+-- HeidiSQL Version:             12.1.0.6537
+-- --------------------------------------------------------
 
--- Destruction de la BD si elle existe.
--- Pour être certain d'avoir la dernière version des données
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET NAMES utf8 */;
+/*!50503 SET NAMES utf8mb4 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
-DROP DATABASE IF EXISTS Nathan_Chabloz_EXPI1A_Jeux_164_2024;
 
--- Création d'un nouvelle base de donnée
-
-CREATE DATABASE IF NOT EXISTS Nathan_Chabloz_EXPI1A_Jeux_164_2024;
-
--- Utilisation de cette base de donnée
-
-USE Nathan_Chabloz_EXPI1A_Jeux_164_2024;
+-- Listage de la structure de la base pour nathan_chabloz_expli1a_module_164
+DROP DATABASE IF EXISTS `Nathan_Chabloz_EXPI1A_Jeux_164_2024`;
+CREATE DATABASE IF NOT EXISTS `Nathan_Chabloz_EXPI1A_Jeux_164_2024` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `Nathan_Chabloz_EXPI1A_Jeux_164_2024`;
 
 -- Listage de la structure de table nathan_chabloz_expli1a_module_164. t_adresse
 DROP TABLE IF EXISTS `t_adresse`;

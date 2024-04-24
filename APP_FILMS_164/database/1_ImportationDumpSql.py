@@ -19,5 +19,3 @@ except Exception as erreur_load_dump_sql:
     print(f"Initialisation de la BD Impossible ! (voir DUMP ou .env) "
           f"{erreur_load_dump_sql.args[0]} , "
           f"{erreur_load_dump_sql}")
-
-# connard
