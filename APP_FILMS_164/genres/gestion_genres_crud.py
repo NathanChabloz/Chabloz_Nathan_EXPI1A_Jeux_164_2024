@@ -28,7 +28,7 @@ from APP_FILMS_164.genres.gestion_genres_wtf_forms import FormWTFUpdateGenre
 """
 
 
-@app.route("/genres_afficher/<string:order_by>/<int:id_genre_sel>", methods=['GET', 'POST'])
+@app.route("/categorie_afficher/<string:order_by>/<int:id_genre_sel>", methods=['GET', 'POST'])
 def genres_afficher(order_by, id_genre_sel):
     if request.method == "GET":
         try:
@@ -47,7 +47,7 @@ def genres_afficher(order_by, id_genre_sel):
 
                     mc_afficher.execute(strsql_genres_afficher, valeur_id_genre_selected_dictionnaire)
                 else:
-                    strsql_genres_afficher = """SELECT id_genre, intitule_genre, date_ins_genre  FROM t_genre ORDER BY id_genre DESC"""
+                    strsql_genres_afficher = """SELECT *  FROM t_genre ORDER BY id_genre DESC"""
 
                     mc_afficher.execute(strsql_genres_afficher)
 
