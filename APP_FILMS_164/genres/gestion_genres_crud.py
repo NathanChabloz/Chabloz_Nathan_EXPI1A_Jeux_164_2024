@@ -185,11 +185,14 @@ def genre_update_wtf():
             # Une seule valeur est suffisante "fetchone()", vu qu'il n'y a qu'un seul champ "nom genre" pour l'UPDATE
             data_nom_genre = mybd_conn.fetchone()
             print("data_nom_genre ", data_nom_genre, " type ", type(data_nom_genre), " genre ",
-                  data_nom_genre["intitule_genre"])
+                  data_nom_genre["nom_categorie"] if data_nom_genre else "data_nom_genre is None")
 
-            # Afficher la valeur sélectionnée dans les champs du formulaire "genre_update_wtf.html"
-            form_update.nom_genre_update_wtf.data = data_nom_genre["intitule_genre"]
-            form_update.date_genre_wtf_essai.data = data_nom_genre["date_ins_genre"]
+            if data_nom_genre:
+                # Afficher la valeur sélectionnée dans les champs du formulaire "genre_update_wtf.html"
+                form_update.nom_genre_update_wtf.data = data_nom_genre["nom_categorie"]
+            else:
+                flash("Erreur : données non trouvées", "danger")
+                return redirect(url_for('genres_afficher', order_by="ASC", id_genre_sel=id_genre_update))
 
     except Exception as Exception_genre_update_wtf:
         raise ExceptionGenreUpdateWtf(f"fichier : {Path(__file__).name}  ;  "
