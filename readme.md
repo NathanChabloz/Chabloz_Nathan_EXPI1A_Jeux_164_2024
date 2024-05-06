@@ -1,7 +1,8 @@
-# Module 164 2024.03.26
+# module 164 Nathan Chabloz le 26-04-2024
 
-Le "début de la fin"
+Voila les dernières choses modifiée : 
+  - genres_afficher.html : Modification de l'affichage html
+  - gestion_genres_crud.py : Modification de la connexion entre la DB et l'interface  WEB
+  - genres_ajouter_wtf.html : Modification de l'affichage html
 
-Le mode d'emploi et vos devoirs se trouvent à l'adresse suivante.
-
-https://info164.github.io/doc164ver1/index.html
+lien vers la documentation : https://info164.github.io/doc164ver1/index.html
