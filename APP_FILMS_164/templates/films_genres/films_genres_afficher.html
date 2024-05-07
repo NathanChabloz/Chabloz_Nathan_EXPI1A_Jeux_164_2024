@@ -2,98 +2,100 @@
 {% block title %} Afficher FILMS {% endblock %}
 {% block body %}
 <div class="container">
-	<div class="col-md-12">
-		<table class="table table-responsive-sm">
+    <div class="col-md-12">
+        <table class="table table-responsive-sm">
             {% if data %}
-				<thead>
-					<tr>
-						<th class="" >
-						  Id
-						</th>
-						<th class="" >
-						  Nom
-						</th>
-						<th class="" >
-						  Durée Moyenne
-						</th>
-						<th class="" >
-						  Date de sortie
-						</th>
-						<th class="" >
-						  joueurs min
-						</th>
-						<th class="" >
-						  joueurs max
-						</th>
-						<th class="" >
-						  age min
-						</th>
-						<th class="" >
-						  age max
-						</th>
-					</tr>
-				</thead>
-			{% endif %}
-			{% for row in data %}
-			<tbody>
-				<tr>
-					  <th class="align-middle">
-						  {{ row.id_jeux }}
-					  </th>
-					  <th class="align-middle">
-						{{ row.nom_jeu }}
-					  </th>
-					  <th class="align-middle">
-						{{ row.durée_moyenne|default("", True) }}
-					  </th>
-					  <th class="align-middle">
-						{{ row.date_sortie_jeux|default("", True) }}
-					  </th>
-					  <th class="align-middle">
-						{{ row.joueurs_min|default("", True) }}
-					  </th>
-					<th class="align-middle">
-						{{ row.joueurs_max|default("", True) }}
-					  </th>
-					<th class="align-middle">
-						{{ row.age_min|default("", True) }}
-					  </th>
-					<th class="align-middle">
+            <thead>
+                <tr>
+                    <th>
+                        Id
+                    </th>
+                    <th>
+                        Nom
+                    </th>
+                    <th>
+                        Durée Moyenne
+                    </th>
+                    <th>
+                        Date de sortie
+                    </th>
+                    <th>
+                        Joueurs min
+                    </th>
+                    <th>
+                        Joueurs max
+                    </th>
+                    <th>
+                        Age min
+                    </th>
+                    <th>
+                        Age max
+                    </th>
+                    <th>
+                        Image du jeu
+                    </th>
+                    <th colspan="3">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in data %}
+                <tr>
+                    <td class="align-middle">
+                        {{ row.id_jeux }}
+                    </td>
+                    <td class="align-middle">
+                        {{ row.nom_jeu }}
+                    </td>
+                    <td class="align-middle">
+                        {{ row.durée_moyenne|default("", True) }}
+                    </td>
+                    <td class="align-middle">
+                        {{ row.date_sortie_jeux|default("", True) }}
+                    </td>
+                    <td class="align-middle">
+                        {{ row.joueurs_min|default("", True) }}
+                    </td>
+                    <td class="align-middle">
+                        {{ row.joueurs_max|default("", True) }}
+                    </td>
+                    <td class="align-middle">
+                        {{ row.age_min|default("", True) }}
+                    </td>
+                    <td class="align-middle">
 						{{ row.age_max|default("", True) }}
-					  </th>
-					  <th class="align-middle">
-						<a class="btn btn-primary" href="{{ url_for('film_add_wtf') }}" role="button">Ajouter</a>
-					  </th>
-					  <th class="align-middle">
-						<a class="btn btn-warning" href="{{ url_for('film_update_wtf', id_film_btn_edit_html=row.id_film) }}" role="button">Modifier</a>
-					  </th>
-					  <th class="align-middle">
-						<a class="btn btn-danger" href="{{ url_for('film_delete_wtf', id_film_btn_delete_html=row.id_film ) }}" role="button">Supprimer</a>
-					  </th>
-					<tr>
-						<td class="align-middle">
-							<a class="btn btn-warning" href="{{ url_for('edit_genre_film_selected', id_film_genres_edit_html=row.id_film) }}" role="button">Modifier</a>
-						</td>
-						<td class="align-middle" colspan="5">
-							{{ row.GenresFilms|default("PAS DE CATEGORIE", True) }}
-						</td>
-					</tr>
-				</tr>
-			</tbody>
-			{% else %}
-				<tbody>
-					<tr>
-						<td>
-							Aucun film.
-						</td>
-						<td>
-							<a class="btn btn-primary" href="{{ url_for('avertissement_sympa_pour_geeks') }}" role="button">Add</a>
-						</td>
-					</tr>
-				</tbody>
-			{% endfor %}
-
-		</table>
-	</div>
+                    </td>
+                    <td class="align-middle">
+						<img class="img" src="{{ row.image_jeux|default(None, True) }}" style="border: 0;display:block; width:200px; height:auto;" alt="Aucune image trouvée">
+                    </td>
+                    <td class="align-middle">
+                        <a class="btn btn-primary" href="{{ url_for('film_add_wtf') }}" role="button">Ajouter</a>
+                    </td>
+                    <td class="align-middle">
+                        <a class="btn btn-warning" href="{{ url_for('film_update_wtf', id_film_btn_edit_html=row.id_film) }}" role="button">Modifier</a>
+                    </td>
+                    <td class="align-middle">
+                        <a class="btn btn-danger" href="{{ url_for('film_delete_wtf', id_film_btn_delete_html=row.id_film ) }}" role="button">Supprimer</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="9">
+                        <a class="btn btn-warning" href="{{ url_for('edit_genre_film_selected', id_film_genres_edit_html=row.id_film) }}" role="button">Modifier</a>
+                        {{ row.GenresFilms|default("PAS DE CATEGORIE", True) }}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            {% else %}
+            <tbody>
+                <tr>
+                    <td colspan="10">
+                        Aucun film.
+                        <a class="btn btn-primary" href="{{ url_for('avertissement_sympa_pour_geeks') }}" role="button">Add</a>
+                    </td>
+                </tr>
+            </tbody>
+            {% endif %}
+        </table>
+    </div>
 </div>
 {% endblock %}
