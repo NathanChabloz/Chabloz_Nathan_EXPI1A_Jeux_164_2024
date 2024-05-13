@@ -30,24 +30,23 @@ Remarque :  Dans le champ "nom_film_update_wtf" du formulaire "films/films_updat
 
 @app.route("/film_add", methods=['GET', 'POST'])
 def film_add_wtf():
-    # Objet formulaire pour AJOUTER un film
     form_add_film = FormWTFAddFilm()
+
     if request.method == "POST":
         try:
             if form_add_film.validate_on_submit():
-                nom_film_add = form_add_film.nom_film_add_wtf.data
+                nom_jeu_add = form_add_film.nom_jeu_add_wtf.data
 
-                valeurs_insertion_dictionnaire = {"value_nom_film": nom_film_add}
+                valeurs_insertion_dictionnaire = {"value_nom_jeu": nom_jeu_add}
                 print("valeurs_insertion_dictionnaire ", valeurs_insertion_dictionnaire)
 
-                strsql_insert_film = """INSERT INTO t_jeux (id_jeux, nom_jeu) VALUES (NULL,%(value_nom_film)s) """
+                strsql_insert_jeu = """INSERT INTO t_jeux (id_jeux, nom_jeu) VALUES (NULL,%(value_nom_jeu)s) """
                 with DBconnection() as mconn_bd:
-                    mconn_bd.execute(strsql_insert_film, valeurs_insertion_dictionnaire)
+                    mconn_bd.execute(strsql_insert_jeu, valeurs_insertion_dictionnaire)
 
                 flash(f"Données insérées !!", "success")
                 print(f"Données insérées !!")
 
-                # Pour afficher et constater l'insertion du nouveau film (id_film_sel=0 => afficher tous les films)
                 return redirect(url_for('films_genres_afficher', id_film_sel=0))
 
         except Exception as Exception_genres_ajouter_wtf:
@@ -186,7 +185,7 @@ def film_delete_wtf():
         if form_delete_film.submit_btn_annuler.data:
             return redirect(url_for("films_genres_afficher", id_film_sel=0))
 
-        if form_delete_film.submit_btn_conf_del_film.data:
+        if form_delete_film.submit_btn_conf_del_jeu.data:
             # Récupère les données afin d'afficher à nouveau
             # le formulaire "films/film_delete_wtf.html" lorsque le bouton "Etes-vous sur d'effacer ?" est cliqué.
             data_film_delete = session['data_film_delete']
@@ -198,12 +197,12 @@ def film_delete_wtf():
             btn_submit_del = True
 
         # L'utilisateur a vraiment décidé d'effacer.
-        if form_delete_film.submit_btn_del_film.data:
+        if form_delete_film.submit_btn_del_jeu.data:
             valeur_delete_dictionnaire = {"value_id_film": id_film_delete}
             print("valeur_delete_dictionnaire ", valeur_delete_dictionnaire)
 
-            str_sql_delete_fk_film_genre = """DELETE FROM t_genre_film WHERE fk_film = %(value_id_film)s"""
-            str_sql_delete_film = """DELETE FROM t_film WHERE id_film = %(value_id_film)s"""
+            str_sql_delete_fk_film_genre = """DELETE FROM t_catégorie_jeux WHERE fk_jeux = %(value_id_film)s"""
+            str_sql_delete_film = """DELETE FROM t_jeux WHERE id_jeux = %(value_id_film)s"""
             # Manière brutale d'effacer d'abord la "fk_film", même si elle n'existe pas dans la "t_genre_film"
             # Ensuite on peut effacer le film vu qu'il n'est plus "lié" (INNODB) dans la "t_genre_film"
             with DBconnection() as mconn_bd:
@@ -220,7 +219,7 @@ def film_delete_wtf():
             print(id_film_delete, type(id_film_delete))
 
             # Requête qui affiche le film qui doit être efffacé.
-            str_sql_genres_films_delete = """SELECT * FROM t_film WHERE id_film = %(value_id_film)s"""
+            str_sql_genres_films_delete = """SELECT * FROM t_jeux WHERE id_jeux = %(value_id_film)s"""
 
             with DBconnection() as mydb_conn:
                 mydb_conn.execute(str_sql_genres_films_delete, valeur_select_dictionnaire)

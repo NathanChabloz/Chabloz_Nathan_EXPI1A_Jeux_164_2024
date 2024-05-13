@@ -28,9 +28,19 @@ class FormWTFAddFilm(FlaskForm):
     submit = SubmitField("Enregistrer jeu")
 
 class FormWTFUpdateFilm(FlaskForm):
-    nom_jeu_update_wtf = StringField("Nom du jeu")
-    duree_moyenne_jeu_update_wtf = IntegerField("Durée moyenne du jeu")
-    date_sortie_jeu_update_wtf = DateField("Date de sortie du jeu", validators=[InputRequired()])
+    id_jeux_update_wtf = IntegerField("ID du jeu à mettre à jour", validators=[DataRequired()])
+    nom_jeu_update_wtf = StringField("Nom du jeu", widget=TextArea())
+    duree_moyenne_jeu_update_wtf = IntegerField("Durée moyenne du jeu", validators=[NumberRange(min=1, max=5000,
+                                                                                            message=u"Min %(min)d et "
+                                                                                                    u"max %(max)d "
+                                                                                                    u"Selon Wikipédia "
+                                                                                                    u"L'Incendie du "
+                                                                                                    u"monastère du "
+                                                                                                    u"Lotus rouge "
+                                                                                                    u"durée 1620 "
+                                                                                                    u"min")])
+    date_sortie_jeu_update_wtf = DateField("Date de sortie du film", validators=[InputRequired("Date obligatoire"),
+                                                                                 DataRequired("Date non valide")])
     joueurs_min_update_wtf = IntegerField("Nombre de joueurs minimum")
     joueurs_max_update_wtf = IntegerField("Nombre de joueurs maximum")
     age_min_update_wtf = IntegerField("Âge minimum")
