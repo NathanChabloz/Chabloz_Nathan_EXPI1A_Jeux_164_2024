@@ -40,7 +40,7 @@ def film_add_wtf():
                 valeurs_insertion_dictionnaire = {"value_nom_film": nom_film_add}
                 print("valeurs_insertion_dictionnaire ", valeurs_insertion_dictionnaire)
 
-                strsql_insert_film = """INSERT INTO t_jeux (id_jeux,nom_) VALUES (NULL,%(value_nom_film)s) """
+                strsql_insert_film = """INSERT INTO t_jeux (id_jeux, nom_jeu) VALUES (NULL,%(value_nom_film)s) """
                 with DBconnection() as mconn_bd:
                     mconn_bd.execute(strsql_insert_film, valeurs_insertion_dictionnaire)
 
@@ -77,36 +77,49 @@ Remarque :  Dans le champ "nom_film_update_wtf" du formulaire "films/films_updat
 @app.route("/film_update", methods=['GET', 'POST'])
 def film_update_wtf():
     # L'utilisateur vient de cliquer sur le bouton "EDIT". Récupère la valeur de "id_film"
-    id_film_update = request.values['id_film_btn_edit_html']
+    id_jeux_update = request.values['id_film_btn_edit_html']
 
     # Objet formulaire pour l'UPDATE
-    form_update_film = FormWTFUpdateFilm()
+    form_update_jeu = FormWTFUpdateFilm()
     try:
         # 2023.05.14 OM S'il y a des listes déroulantes dans le formulaire
         # La validation pose quelques problèmes
-        if request.method == "POST" and form_update_film.submit.data:
-            # Récupèrer la valeur du champ depuis "genre_update_wtf.html" après avoir cliqué sur "SUBMIT".
-            nom_film_update = form_update_film.nom_film_update_wtf.data
-            duree_film_update = form_update_film.duree_film_update_wtf.data
-            description_film_update = form_update_film.description_film_update_wtf.data
-            cover_link_film_update = form_update_film.cover_link_film_update_wtf.data
-            datesortie_film_update = form_update_film.datesortie_film_update_wtf.data
+        if request.method == "POST" and form_update_jeu.submit.data:
+            # Récupérer les valeurs des champs depuis "genre_update_wtf.html" après avoir cliqué sur "SUBMIT".
+            id_jeux_update = form_update_jeu.id_jeux_update_wtf.data
+            nom_jeu_update = form_update_jeu.nom_jeu_update_wtf.data
+            duree_moyenne_jeu_update = form_update_jeu.duree_moyenne_jeu_update_wtf.data
+            joueurs_min_update = form_update_jeu.joueurs_min_update_wtf.data
+            joueurs_max_update = form_update_jeu.joueurs_max_update_wtf.data
+            date_sortie_jeu_update = form_update_jeu.date_sortie_jeu_update_wtf.data
+            age_min_update = form_update_jeu.age_min_update_wtf.data
+            age_max_update = form_update_jeu.age_max_update_wtf.data
+            image_jeu_update = form_update_jeu.image_jeu_update_wtf.data
 
-            valeur_update_dictionnaire = {"value_id_film": id_film_update,
-                                          "value_nom_film": nom_film_update,
-                                          "value_duree_film": duree_film_update,
-                                          "value_description_film": description_film_update,
-                                          "value_cover_link_film": cover_link_film_update,
-                                          "value_datesortie_film": datesortie_film_update
-                                          }
+            valeur_update_dictionnaire = {
+                "value_id_jeux": id_jeux_update,
+                "value_nom_jeu": nom_jeu_update,
+                "value_duree_moyenne_jeu": duree_moyenne_jeu_update,
+                "value_joueurs_min": joueurs_min_update,
+                "value_joueurs_max": joueurs_max_update,
+                "value_date_sortie_jeu": date_sortie_jeu_update,
+                "value_age_min": age_min_update,
+                "value_age_max": age_max_update,
+                "value_image_jeu": image_jeu_update
+            }
+
             print("valeur_update_dictionnaire ", valeur_update_dictionnaire)
 
-            str_sql_update_nom_film = """UPDATE t_film SET nom_film = %(value_nom_film)s,
-                                                            duree_film = %(value_duree_film)s,
-                                                            description_film = %(value_description_film)s,
-                                                            cover_link_film = %(value_cover_link_film)s,
-                                                            date_sortie_film = %(value_datesortie_film)s
-                                                            WHERE id_film = %(value_id_film)s"""
+            str_sql_update_nom_film = """UPDATE t_jeux SET nom_jeu = %(value_nom_jeu)s,
+                                                                        durée_moyenne = %(value_duree_moyenne_jeu)s,
+                                                                        image_jeux = %(value_image_jeu)s,
+                                                                        date_sortie_jeux = %(value_date_sortie_jeu)s,
+                                                                        joueurs_min = %(value_joueurs_min)s,
+                                                                        joueurs_max = %(value_joueurs_max)s,
+                                                                        age_min = %(value_age_min)s,
+                                                                        age_max = %(value_age_max)s
+                                                                        WHERE id_jeux = %(value_id_jeux)s"""
+
             with DBconnection() as mconn_bd:
                 mconn_bd.execute(str_sql_update_nom_film, valeur_update_dictionnaire)
 
@@ -115,33 +128,34 @@ def film_update_wtf():
 
             # afficher et constater que la donnée est mise à jour.
             # Afficher seulement le film modifié, "ASC" et l'"id_film_update"
-            return redirect(url_for('films_genres_afficher', id_film_sel=id_film_update))
+            return redirect(url_for('films_genres_afficher', id_film_sel=id_jeux_update))
         elif request.method == "GET":
             # Opération sur la BD pour récupérer "id_film" et "intitule_genre" de la "t_genre"
-            str_sql_id_film = "SELECT * FROM t_film WHERE id_film = %(value_id_film)s"
-            valeur_select_dictionnaire = {"value_id_film": id_film_update}
+            str_sql_id_film = "SELECT * FROM t_jeux WHERE id_jeux = %(value_id_jeux)s"
+            valeur_select_dictionnaire = {"value_id_jeux": id_jeux_update}
             with DBconnection() as mybd_conn:
                 mybd_conn.execute(str_sql_id_film, valeur_select_dictionnaire)
             # Une seule valeur est suffisante "fetchone()", vu qu'il n'y a qu'un seul champ "nom genre" pour l'UPDATE
             data_film = mybd_conn.fetchone()
-            print("data_film ", data_film, " type ", type(data_film), " genre ",
-                  data_film["nom_film"])
+            print("data_film ", data_film, " type ", type(data_film), " catégorie ",
+                  data_film["nom_jeu"])
 
             # Afficher la valeur sélectionnée dans le champ du formulaire "film_update_wtf.html"
-            form_update_film.nom_film_update_wtf.data = data_film["nom_film"]
-            form_update_film.duree_film_update_wtf.data = data_film["duree_film"]
-            # Debug simple pour contrôler la valeur dans la console "run" de PyCharm
-            print(f" duree film  ", data_film["duree_film"], "  type ", type(data_film["duree_film"]))
-            form_update_film.description_film_update_wtf.data = data_film["description_film"]
-            form_update_film.cover_link_film_update_wtf.data = data_film["cover_link_film"]
-            form_update_film.datesortie_film_update_wtf.data = data_film["date_sortie_film"]
+            form_update_jeu.nom_jeu_update_wtf.data = data_film["nom_jeu"]
+            form_update_jeu.duree_moyenne_jeu_update_wtf.data = data_film["durée_moyenne"]
+            form_update_jeu.image_jeu_update_wtf.data = data_film["image_jeux"]
+            form_update_jeu.date_sortie_jeu_update_wtf.data = data_film["date_sortie_jeux"]
+            form_update_jeu.joueurs_min_update_wtf.data = data_film["joueurs_min"]
+            form_update_jeu.joueurs_max_update_wtf.data = data_film["joueurs_max"]
+            form_update_jeu.age_min_update_wtf.data = data_film["age_min"]
+            form_update_jeu.age_max_update_wtf.data = data_film["age_max"]
 
     except Exception as Exception_film_update_wtf:
         raise ExceptionFilmUpdateWtf(f"fichier : {Path(__file__).name}  ;  "
                                      f"{film_update_wtf.__name__} ; "
                                      f"{Exception_film_update_wtf}")
 
-    return render_template("films/film_update_wtf.html", form_update_film=form_update_film)
+    return render_template("films/film_update_wtf.html", form_update_jeu=form_update_jeu)
 
 
 """Effacer(delete) un film qui a été sélectionné dans le formulaire "films_genres_afficher.html"
