@@ -8,7 +8,8 @@ from wtforms import StringField, DateField
 from wtforms import SubmitField
 from wtforms.validators import Length, InputRequired, DataRequired
 from wtforms.validators import Regexp
-
+from wtforms import StringField, SubmitField, TimeField
+from wtforms.validators import Length, Regexp
 
 class FormWTFAjouterGenres(FlaskForm):
     """
@@ -27,10 +28,6 @@ class FormWTFAjouterGenres(FlaskForm):
 
 
 class FormWTFUpdateGenre(FlaskForm):
-    """
-        Dans le formulaire "genre_update_wtf.html" on impose que le champ soit rempli.
-        Définition d'un "bouton" submit avec un libellé personnalisé.
-    """
     nom_genre_update_regexp = "^([A-Z]|[a-zÀ-ÖØ-öø-ÿ])[A-Za-zÀ-ÖØ-öø-ÿ]*['\- ]?[A-Za-zÀ-ÖØ-öø-ÿ]+$"
     nom_genre_update_wtf = StringField("Clavioter le genre ", validators=[Length(min=2, max=20, message="min 2 max 20"),
                                                                           Regexp(nom_genre_update_regexp,
@@ -41,6 +38,7 @@ class FormWTFUpdateGenre(FlaskForm):
                                                                                          "apostrophe, de double trait "
                                                                                          "union")
                                                                           ])
+    duree_moyenne_genre_wtf = TimeField("Durée moyenne du genre")
     date_genre_wtf_essai = DateField("Essai date", validators=[InputRequired("Date obligatoire"),
                                                                DataRequired("Date non valide")])
     submit = SubmitField("Update genre")
