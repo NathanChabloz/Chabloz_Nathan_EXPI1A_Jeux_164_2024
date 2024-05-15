@@ -16,6 +16,7 @@
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         var video = document.getElementById('myVideo');
+        video.requestFullscreen();
         video.volume = 0.05; // Réglez le volume à 20% de sa valeur maximale
         video.requestFullscreen();
     });
