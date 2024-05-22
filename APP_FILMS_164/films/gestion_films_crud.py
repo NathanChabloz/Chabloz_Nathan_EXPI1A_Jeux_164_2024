@@ -41,7 +41,6 @@ def film_update_wtf():
     form_update_jeu = FormWTFUpdateFilm()
     try:
         if request.method == "POST" and form_update_jeu.submit.data:
-            id_jeux_update = form_update_jeu.id_jeux_update_wtf.data
             nom_jeu_update = form_update_jeu.nom_jeu_update_wtf.data
             duree_moyenne_jeu_update = form_update_jeu.duree_moyenne_jeu_update_wtf.data
             joueurs_min_update = form_update_jeu.joueurs_min_update_wtf.data
@@ -81,7 +80,7 @@ def film_update_wtf():
             flash(f"Donnée mise à jour !!", "success")
             print(f"Donnée mise à jour !!")
 
-            return redirect(url_for('films_genres_afficher', id_film_sel=id_jeux_update))
+            return redirect(url_for('films_genres_afficher', id_film_sel=0))
 
         # Récupération des données du jeu à mettre à jour
         str_sql_id_film = "SELECT * FROM t_jeux WHERE id_jeux = %(value_id_jeux)s"
