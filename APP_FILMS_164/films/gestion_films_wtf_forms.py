@@ -53,11 +53,11 @@ class FormWTFDeleteFilm(FlaskForm):
         Dans le formulaire "jeu_delete_wtf.html"
 
         nom_jeu_delete_wtf : Champ qui reçoit la valeur du jeu, lecture seule. (readonly=true)
-        submit_btn_del_jeu : Bouton d'effacement "DEFINITIF".
+        submit_btn_del_film : Bouton d'effacement "DEFINITIF".
         submit_btn_conf_del_jeu : Bouton de confirmation pour effacer un "jeu".
-        submit_btn_annuler : Bouton qui permet d'afficher la table "t_jeu".
+        submit_btn_annuler : Bouton qui permet d'afficher la table "t_jeu".a
     """
     nom_jeu_delete_wtf = StringField("Effacer ce jeu")
-    submit_btn_del_jeu = SubmitField("Effacer jeu")
+    submit_btn_del_film = SubmitField("Effacer jeu")
     submit_btn_conf_del_jeu = SubmitField("Etes-vous sur d'effacer ?")
     submit_btn_annuler = SubmitField("Annuler")
