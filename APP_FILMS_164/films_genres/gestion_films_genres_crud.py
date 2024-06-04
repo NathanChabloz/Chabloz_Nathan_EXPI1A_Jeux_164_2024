@@ -32,7 +32,7 @@ def films_genres_afficher(id_film_sel):
     if request.method == "GET":
         try:
             with DBconnection() as mc_afficher:
-                strsql_genres_films_afficher_data = """SELECT id_jeux, nom_jeu, durée_moyenne, joueurs_min, joueurs_max,  date_sortie_jeux, age_min, age_max, image_jeux,
+                strsql_genres_films_afficher_data = """SELECT id_jeux, nom_jeu, durée_moyenne, joueurs_min, joueurs_max,  date_sortie_jeux, prix_jeux, age_min, age_max, image_jeux,
                                                             GROUP_CONCAT(nom_categorie) as GenresFilms FROM t_catégorie_jeux
                                                             RIGHT JOIN t_jeux ON t_jeux.id_jeux = t_catégorie_jeux.fk_jeux
                                                             LEFT JOIN t_catégorie ON t_catégorie.id_categorie = t_catégorie_jeux.fk_catégorie
