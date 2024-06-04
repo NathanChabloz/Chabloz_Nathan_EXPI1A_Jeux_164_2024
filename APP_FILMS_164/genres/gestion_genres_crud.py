@@ -109,3 +109,37 @@ def genre_delete_wtf():
     except Exception as Exception_genre_delete_wtf:
         raise ExceptionGenreDeleteWtf(f"fichier : {Path(__file__).name}  ;  {genre_delete_wtf.__name__} ; {Exception_genre_delete_wtf}")
     return render_template("genres/genre_delete_wtf.html", form_delete=form_delete, btn_submit_del=btn_submit_del, data_films_associes=data_films_attribue_genre_delete)
+
+from flask import render_template
+
+@app.route("/consulter_categorie/<int:id_genre_btn_consulter_html>", methods=['GET'])
+def consulter_categorie(id_genre_btn_consulter_html):
+    try:
+        with DBconnection() as mc_consulter:
+            # Récupérer la catégorie sélectionnée
+            strsql_consulter_categorie = """SELECT * FROM t_catégorie WHERE id_categorie = %(value_id_categorie)s"""
+            mc_consulter.execute(strsql_consulter_categorie, {"value_id_categorie": id_genre_btn_consulter_html})
+            data_categorie = mc_consulter.fetchone()
+
+            if not data_categorie:
+                flash("Catégorie non trouvée", "danger")
+                return redirect(url_for('genres_afficher', order_by='ASC', id_genre_sel=0))
+
+            # Récupérer les jeux dans la catégorie sélectionnée en utilisant la table intermédiaire
+            strsql_jeux_categorie = """SELECT *
+                                       FROM t_jeux 
+                                       INNER JOIN t_catégorie_jeux 
+                                       ON t_jeux.id_jeux = t_catégorie_jeux.FK_jeux 
+                                       WHERE t_catégorie_jeux.FK_catégorie = %(value_id_categorie)s"""
+            mc_consulter.execute(strsql_jeux_categorie, {"value_id_categorie": id_genre_btn_consulter_html})
+            data_jeux = mc_consulter.fetchall()
+
+            if not data_jeux:
+                flash("Aucun jeu trouvé dans cette catégorie", "info")
+                return render_template("genres/consulter_categorie.html", categorie=data_categorie, jeux=None)
+            else:
+                return render_template("genres/consulter_categorie.html", categorie=data_categorie, jeux=data_jeux)
+
+    except Exception as e:
+        flash(f"Une erreur s'est produite lors de la consultation de la catégorie : {str(e)}", "danger")
+        return redirect(url_for('genres_afficher', order_by='ASC', id_genre_sel=0))

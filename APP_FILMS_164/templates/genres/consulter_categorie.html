@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}Consulter Catégorie{% endblock %}
+{% block body %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Détails de la catégorie</h2>
+            <p>ID : {{ categorie.id_categorie }}</p>
+            <p>Nom : {{ categorie.nom_categorie }}</p>
+
+            ## Jeux dans cette catégorie
+            <table class="table table-bordered table-sm">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nom</th>
+                        <th>Image</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for jeu in jeux %}
+                    <tr>
+                        <td>{{ jeu.id_jeux }}</td>
+                        <td>{{ jeu.nom_jeu }}</td>
+                        <td><img class="image" src="{{ jeu.image_jeux }}" alt="{{ jeu.nom_jeu }}" width="400"></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <a class="btn btn-primary" href="{{ url_for('genres_afficher', order_by='ASC', id_genre_sel=0) }}">Retour</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
