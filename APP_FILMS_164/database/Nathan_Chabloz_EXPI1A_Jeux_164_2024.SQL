@@ -89,11 +89,8 @@ INSERT INTO `t_catégorie` (`id_categorie`, `nom_categorie`) VALUES
 	(18, 'Stratégie'),
 	(19, 'Stratégie'),
 	(20, 'Stratégie'),
-	(39, 'Bonjour'),
 	(40, 'Fuckevan'),
-	(41, 'merdique'),
-	(43, 'test'),
-	(46, 'stratégie');
+	(41, 'merdique');
 
 -- Listage de la structure de table nathan_chabloz_expi1a_jeux_164_2024. t_catégorie_jeux
 DROP TABLE IF EXISTS `t_catégorie_jeux`;
@@ -106,7 +103,7 @@ CREATE TABLE IF NOT EXISTS `t_catégorie_jeux` (
   KEY `FK_t_catégorie_jeux_t_jeux` (`FK_jeux`),
   CONSTRAINT `FK_t_catégorie_jeux_t_catégorie` FOREIGN KEY (`FK_catégorie`) REFERENCES `t_catégorie` (`id_categorie`),
   CONSTRAINT `FK_t_catégorie_jeux_t_jeux` FOREIGN KEY (`FK_jeux`) REFERENCES `t_jeux` (`id_jeux`)
-) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=59 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Listage des données de la table nathan_chabloz_expi1a_jeux_164_2024.t_catégorie_jeux : ~26 rows (environ)
 INSERT INTO `t_catégorie_jeux` (`id_catégorie_jeux`, `FK_catégorie`, `FK_jeux`) VALUES
@@ -129,15 +126,38 @@ INSERT INTO `t_catégorie_jeux` (`id_catégorie_jeux`, `FK_catégorie`, `FK_jeux
 	(19, 17, 17),
 	(20, 18, 17),
 	(22, 17, 1),
-	(23, 43, 1),
 	(24, 13, 1),
 	(25, 41, 1),
 	(28, 40, 1),
-	(29, 46, 1),
 	(30, 9, 205),
 	(31, 4, 205),
 	(32, 7, 205),
-	(33, 11, 1);
+	(33, 11, 1),
+	(34, 41, 4),
+	(35, 11, 4),
+	(36, 12, 4),
+	(37, 6, 4),
+	(38, 2, 213),
+	(39, 3, 213),
+	(40, 4, 213),
+	(41, 5, 213),
+	(42, 6, 213),
+	(43, 7, 213),
+	(44, 8, 213),
+	(45, 9, 213),
+	(46, 10, 213),
+	(47, 11, 213),
+	(48, 12, 213),
+	(49, 13, 213),
+	(50, 14, 213),
+	(51, 15, 213),
+	(52, 16, 213),
+	(53, 17, 213),
+	(54, 18, 213),
+	(55, 19, 213),
+	(56, 20, 213),
+	(57, 40, 213),
+	(58, 41, 213);
 
 -- Listage de la structure de table nathan_chabloz_expi1a_jeux_164_2024. t_compte
 DROP TABLE IF EXISTS `t_compte`;
@@ -285,11 +305,11 @@ CREATE TABLE IF NOT EXISTS `t_jeux` (
   `age_max` int DEFAULT NULL,
   `image_jeux` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
   PRIMARY KEY (`id_jeux`)
-) ENGINE=InnoDB AUTO_INCREMENT=211 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=214 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Listage des données de la table nathan_chabloz_expi1a_jeux_164_2024.t_jeux : ~22 rows (environ)
+-- Listage des données de la table nathan_chabloz_expi1a_jeux_164_2024.t_jeux : ~24 rows (environ)
 INSERT INTO `t_jeux` (`id_jeux`, `nom_jeu`, `joueurs_min`, `joueurs_max`, `durée_moyenne`, `date_sortie_jeux`, `prix_jeux`, `age_min`, `age_max`, `image_jeux`) VALUES
-	(1, 'Chess', 2, 2, 60, '1990-01-01', 0, 6, 99, 'https://download.vikidia.org/vikidia/fr/images/thumb/d/d2/%C3%89chiquier_avec_pi%C3%A8ces.jpg/640px-%C3%89chiquier_avec_pi%C3%A8ces.jpg'),
+	(1, 'Echecs', 2, 2, 30, '0600-01-01', 0, 4, 99, 'https://lh4.googleusercontent.com/proxy/uOaQwjtvi-JbHJL5kBzCKIi1mAOjArHelCKYDT_B8cjdoT9SQKJqNDDmZusWPgeEx62CgItvUy3kxVDVG-W7pVfydk5eszWU1UDa_ERmPuXcvGDQXnCbWmaBEQBq0Jcz9R_BfFKeP_7jU8OxDOcG0XjolRpc8qNTKo8a9TVUpMBPQ2tO4eEn4iK12jfHRrl8MhzrsS7CvpG1Cw'),
 	(2, 'Monopoly', 2, 6, 120, '1935-03-07', 30, 8, 99, 'https://cf.geekdo-images.com/9nGoBZ0MRbi6rdH47sj2Qg__opengraph/img/Dm8scRK_5hJrDrv8OPyDHP1WVf8=/0x0:1307x686/fit-in/1200x630/filters:strip_icc()/pic5786795.jpg'),
 	(3, 'Scrabble', 2, 4, 90, '1938-12-01', 20, 8, 99, 'https://e3.365dm.com/22/11/2048x1152/skynews-scrabble-boardgame_5968487.jpg'),
 	(4, 'Jenga', 1, 8, 30, '1983-01-01', 15, 6, 99, 'https://mlvhcgd5ovnr.i.optimole.com/cb:1FOq.9aae/w:1024/h:512/q:mauto/f:best/https://www.apwide.com/wp-content/uploads/2023/07/apwide-test-environment-jenga-blog-image-cover.jpg'),
@@ -309,7 +329,10 @@ INSERT INTO `t_jeux` (`id_jeux`, `nom_jeu`, `joueurs_min`, `joueurs_max`, `duré
 	(18, 'Clank!', 2, 4, 60, '2016-01-01', 60, 10, 99, 'https://cf.geekdo-images.com/DPjV1iI0ygo5Bl3XLNRiIg__opengraph/img/UtUFDFO1VXGmLKyq83bGyka-8JU=/0x0:1497x786/fit-in/1200x630/filters:strip_icc()/pic4449526.jpg'),
 	(19, 'Splendor', 2, 4, 30, '2014-01-01', 40, 10, 99, 'https://cdn.mos.cms.futurecdn.net/RqGo7W3g4escRJ9F5PoaHB.jpg'),
 	(20, 'King of Tokyo', 2, 6, 30, '2011-01-01', 35, 8, 99, 'https://files.ludonix.ch/bilder/king-of-tokyo-681-original.jpg'),
-	(205, 'Color Addict', 2, 6, 15, '2024-05-07', 30, 4, 99, 'https://m.media-amazon.com/images/I/61am5oDbfNL.jpg');
+	(205, 'Color Addict', 2, 6, 15, '2024-05-07', 30, 4, 99, 'https://m.media-amazon.com/images/I/61am5oDbfNL.jpg'),
+	(211, 'test', 2, 2, 60, '2024-05-01', NULL, 2, 4, 'https://www.spielezar.ch/products/4946-genzo_theme_large_default/king-of-tokyo.webp'),
+	(212, 'test', 2, 4, 2, NULL, NULL, 2, 4, 'https://leanstartup.co/wp-content/uploads/2017/10/board-361516_1920.jpg'),
+	(213, 'Maccaud', 1, 2, 35, '2024-05-22', NULL, 0, 26, 'https://trescourt.com/festival/trombinoscope/2023/olivier-maccaud-med.jpg');
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
