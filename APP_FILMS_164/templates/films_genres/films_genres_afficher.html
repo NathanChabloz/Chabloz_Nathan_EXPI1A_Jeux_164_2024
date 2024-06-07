@@ -14,23 +14,18 @@
                         Nom
                     </th>
                     <th>
-                        Durée Moyenne
+                        Durée
                     </th>
                     <th>
                         Date de sortie
                     </th>
                     <th>
-                        Joueurs min
-                    </th>
-                    <th>
-                        Joueurs max
+                        Joueurs
                     </th>
                     <th>
                         Age min
                     </th>
-                    <th>
-                        Age max
-                    </th>
+
                     <th>
                         Image du jeu
                     </th>
@@ -53,17 +48,12 @@
                         {{ row.date_sortie_jeux|default("", True) }}
                     </td>
                     <td class="align-middle">
-                        {{ row.joueurs_min|default("", True) }}
-                    </td>
-                    <td class="align-middle">
-                        {{ row.joueurs_max|default("", True) }}
+                        {{ row.joueurs_min|default("", True) }} - {{ row.joueurs_max|default("", True) }}
                     </td>
                     <td class="align-middle">
                         {{ row.age_min|default("", True) }}
                     </td>
-                    <td class="align-middle">
-						{{ row.age_max|default("", True) }}
-                    </td>
+
                     <td class="align-middle">
 						<img class="img" src="{{ row.image_jeux|default(None, True) }}" style="border: 0;display:block; width:200px; height:auto;" alt="Aucune image trouvée">
                     </td>
